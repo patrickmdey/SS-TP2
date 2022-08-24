@@ -13,10 +13,10 @@ public class SelfPropelledSystem {
     final static int MAX_ITER = (int) Math.pow(10, 4);
 
     public static void main(String[] args) {
-        int spaceSize = 7;
+        int spaceSize = 25;
         int particleAmount = 300;
         double interactionRad = 1;
-        double eta = 2;
+        double eta = 0.1;
         double speed = 0.03;
 
         Particle.setInteractRadius(interactionRad);
