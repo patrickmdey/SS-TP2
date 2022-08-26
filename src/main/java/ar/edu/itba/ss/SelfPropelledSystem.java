@@ -29,24 +29,23 @@ public class SelfPropelledSystem {
         double polarization = 0.5;
 
         int iterCount = 0;
-        try (FileWriter writer1 = new FileWriter("out.txt");
+        try (FileWriter outFile = new FileWriter("out.txt");
              FileWriter polarizationFile = new FileWriter("pol.txt")) {
             while (polarization < 0.9999999 && iterCount < MAX_ITER) {
                 particles = space.getParticleList();
-                double[] speedSum = {0,0};
-                writer1.write(particleAmount + "\n");
-                writer1.write("title" + "\n");
+                double[] speedSum = {0, 0};
+                outFile.write(particleAmount + "\n");
+                outFile.write("title" + "\n");
 
                 for (Particle p : particles) {
                     double sx = p.getSpeed() * Math.cos(p.getDirection());
                     double sy = p.getSpeed() * Math.sin(p.getDirection());
-                    writer1.write(String.format(Locale.ROOT, "%f %f %f %f\n",
-                            p.getPosition().getX(), p.getPosition().getY(), sx, sy));
+                    outFile.write(String.format(Locale.ROOT, "%d %f %f %f\n", p.getId(),
+                            p.getPosition().getX(), p.getPosition().getY(), p.getDirection()));
 
                     speedSum[0] += sx;
                     speedSum[1] += sy;
                 }
-
                 polarization = Math.sqrt(Math.pow(speedSum[0], 2) + Math.pow(speedSum[1], 2)) / (particleAmount * speed);
                 polarizationFile.write(polarization + "\n");
 

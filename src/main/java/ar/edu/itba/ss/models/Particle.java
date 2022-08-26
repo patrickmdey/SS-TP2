@@ -12,6 +12,7 @@ public class Particle {
     private final Set<Particle> neighbours;
     private final double speed;
     private double direction;
+    private double nextDir;
     private final double eta;
 
     public Particle(double speed, double eta) {
@@ -22,18 +23,7 @@ public class Particle {
         this.eta = eta;
     }
 
-    public void update(int spaceSize) {
-        this.interact();
-        this.updatePosition(spaceSize);
-    }
-
-    private void updatePosition(int spaceSize) {
-        double dx = this.speed * Math.cos(this.direction);
-        double dy = this.speed * Math.sin(this.direction);
-        this.position.move(spaceSize, dx, dy);
-    }
-
-    private void interact() {
+    public void calculateDirection() {
         double totSin = Math.sin(this.direction);
         double totCos = Math.cos(this.direction);
         for (Particle neighbour : this.neighbours) {
@@ -42,7 +32,20 @@ public class Particle {
         }
 
         double count = this.neighbours.size() + 1;
-        this.direction = (Math.atan2(totSin / count, totCos / count) + Math.random() * this.eta - this.eta / 2);
+        double newDir = (Math.atan2(totSin / count, totCos / count) + Math.random() * this.eta - this.eta / 2);
+
+        this.nextDir = (newDir + 2 * Math.PI) % (2 * Math.PI);
+    }
+
+    private void updatePosition(int spaceSize) {
+        double dx = this.speed * Math.cos(this.direction);
+        double dy = this.speed * Math.sin(this.direction);
+        this.position.move(spaceSize, dx, dy);
+    }
+
+    public void update(int spaceSize) {
+        this.direction = this.nextDir;
+        this.updatePosition(spaceSize);
     }
 
     public boolean isColliding(Particle other, int spaceSize, int gridM) {

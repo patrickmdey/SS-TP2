@@ -25,8 +25,9 @@ public class Space {
 
     public void update() {
         this.positionParticles();
-        this.calculateNeighbours(true);
+        this.calculateNeighbours();
 
+        particleList.forEach(Particle::calculateDirection);
         particleList.forEach(p -> p.update(spaceSize));
     }
 
@@ -48,15 +49,7 @@ public class Space {
             cells[row][col].addParticle(particle);
         }
     }
-    public void calculateNeighbours(boolean isPeriodic) {
-        if (isPeriodic) {
-            periodicSet();
-        } else {
-            setNeighbours();
-        }
-    }
-
-    private void periodicSet() {
+    public void calculateNeighbours() {
         this.particleList.forEach(particle -> {
             particle.removeAllNeighbours();
 
@@ -80,6 +73,31 @@ public class Space {
             }
         });
     }
+
+//    private void periodicSet() {
+//        this.particleList.forEach(particle -> {
+//            particle.removeAllNeighbours();
+//
+//            Point position = particle.getPosition();
+//            int row = getRow(position);
+//            int col = getCol(position);
+//
+//            for (int[] dir : DIRECTIONS) {
+//                int currRow = Math.floorMod(row + dir[0], gridM);
+//                int currCol = Math.floorMod(col + dir[1], gridM);
+//
+//                if (cells[currRow][currCol] == null)
+//                    continue;
+//
+//                cells[currRow][currCol].getParticles().stream()
+//                        .filter(p -> particle.isColliding(p, spaceSize, gridM))
+//                        .forEach(p -> {
+//                            particle.addNeighbour(p);
+//                            p.addNeighbour(particle);
+//                        });
+//            }
+//        });
+//    }
 
     private void setNeighbours() {
         this.particleList.forEach(particle -> {
