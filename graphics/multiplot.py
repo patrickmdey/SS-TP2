@@ -1,7 +1,9 @@
 import matplotlib.pyplot as plt
 
+import numpy as np
+
 polarizations = []
-MAX_ITER = 10**4
+MAX_ITER = 1000
 with open('../multiplot.txt') as multiplot_file:
     line = multiplot_file.readline()
     idx = 0
@@ -16,24 +18,24 @@ with open('../multiplot.txt') as multiplot_file:
 
 multiplot_file.close()
 
+plt.xlabel("Time (s)")
+plt.ylabel("Polarization")
 for polarization in polarizations:
     plt.plot(polarization)
 
+plt.axvline(x = 800, color = 'r', linestyle = '--')
+plt.show() 
+
+t = int(input("Enter a number: "))
+for_average = [np.mean(polarizations[i][t:]) for i in range(len(polarizations))]
+for_std = [np.std(polarizations[i][t:], ddof=1) for i in range(len(polarizations))]
+
+plt.xlabel("Eta")
+plt.ylabel("Polarization")
+
+# TODO cambiar por eta y densidad (N / L^2)
+plt.errorbar(np.arange(0, 6, 1), for_average, yerr=for_std, fmt='o', capsize=6, capthick=2)
+plt.xticks(np.arange(0, 6, 1))
+plt.yticks(np.arange(0, 1.1, 0.1))
+
 plt.show()
-
-# def plot(arr: dict, title: str):
-    
-#     x = np.array(range(len(arr["max"])))
-
-#     fig, ax = plt.subplots(figsize=(5, 2.7), layout="constrained")
-
-#     ax.set_xlabel("gen n")
-#     ax.set_ylabel("fitness")
-#     ax.locator_params("y", nbins=10)
-#     ax.locator_params("x", nbins=15)
-#     ax.plot(x, arr["max"], label="max", color="r")
-#     ax.plot(x, arr["min"], label="min", color="g")
-#     ax.plot(x, arr["avg"], label="avg", color="b")
-#     ax.set_title(title)
-#     ax.legend()
-#     plt.show()
