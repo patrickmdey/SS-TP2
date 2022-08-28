@@ -32,7 +32,6 @@ public class Space {
     }
 
     private void positionParticles() {
-        // TODO: Ver si se puede hacer mejor
         for (int i = 0; i < gridM; i++) {
             for (int j = 0; j < gridM; j++) {
                 this.cells[i][j] = null;
@@ -72,58 +71,6 @@ public class Space {
                         });
             }
         });
-    }
-
-//    private void periodicSet() {
-//        this.particleList.forEach(particle -> {
-//            particle.removeAllNeighbours();
-//
-//            Point position = particle.getPosition();
-//            int row = getRow(position);
-//            int col = getCol(position);
-//
-//            for (int[] dir : DIRECTIONS) {
-//                int currRow = Math.floorMod(row + dir[0], gridM);
-//                int currCol = Math.floorMod(col + dir[1], gridM);
-//
-//                if (cells[currRow][currCol] == null)
-//                    continue;
-//
-//                cells[currRow][currCol].getParticles().stream()
-//                        .filter(p -> particle.isColliding(p, spaceSize, gridM))
-//                        .forEach(p -> {
-//                            particle.addNeighbour(p);
-//                            p.addNeighbour(particle);
-//                        });
-//            }
-//        });
-//    }
-
-    private void setNeighbours() {
-        this.particleList.forEach(particle -> {
-            particle.removeAllNeighbours();
-            Point position = particle.getPosition();
-            int row = getRow(position);
-            int col = getCol(position);
-
-            for (int[] dir : DIRECTIONS) {
-                int currRow = row + dir[0];
-                int currCol = col + dir[1];
-
-                if (currRow < 0 || currRow >= gridM || currCol < 0
-                        || currCol >= gridM || cells[currRow][currCol] == null)
-                    continue;
-
-                cells[currRow][currCol].getParticles().stream()
-                        .filter(p -> particle.isColliding(p, spaceSize, gridM))
-                        .forEach(p -> {
-                            particle.addNeighbour(p);
-                            p.addNeighbour(particle);
-                        });
-            }
-        });
-
-        System.out.println("Despues hay: " + (Integer) particleList.stream().map(p -> p.getNeighbours().size()).mapToInt(s -> s).sum());
     }
 
     private int getRow(Point position) {
