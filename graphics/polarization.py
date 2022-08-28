@@ -1,11 +1,4 @@
-import matplotlib.pyplot as plt
 import math
-
-
-# polarization = Math.sqrt(Math.pow(speedSum[0], 2) + Math.pow(speedSum[1], 2)) / (particleAmount * speed);
-#                polarizationFile.write(polarization + "\n");
-
-#p.getId(), p.getPosition().getX(), p.getPosition().getY(), p.getDirection()));
 
 speed = 0.03
 polarizations = []
@@ -25,9 +18,12 @@ with open("../out.txt") as output_file:
 
         polarizations.append(math.sqrt(speed_x ** 2 + speed_y ** 2) / (particleAmount * speed))
         line = output_file.readline()
+        
+output_file.close()
 
 
-
-plt.plot(polarizations)
-plt.plot(polarizations)
-plt.show()
+with open("../multiplot.txt", "a") as multiplot_file:
+    multiplot_file.write("titulo\n")
+    for polarization in polarizations:
+        multiplot_file.write(str(polarization) + "\n")
+multiplot_file.close()

@@ -9,13 +9,19 @@ import java.util.List;
 import java.util.Locale;
 
 public class SelfPropelledSystem {
-    final static int MAX_ITER = (int) Math.pow(10, 4.5);
+    final static int MAX_ITER = (int) Math.pow(10, 4);
 
     public static void main(String[] args) {
+        if (args.length != 2) {
+            System.out.println("Usage: java SelfPropelledSystem <eta> <particle_count>");
+            System.exit(1);
+        }
+
+        double eta = Double.parseDouble(args[0]);
+        int particleAmount = Integer.parseInt(args[1]);
+
         int spaceSize = 25;
-        int particleAmount = 300;
         double interactionRad = 1;
-        double eta = 0.1;
         double speed = 0.03;
 
         Particle.setInteractRadius(interactionRad);
