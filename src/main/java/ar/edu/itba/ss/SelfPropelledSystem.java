@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Locale;
 
 public class SelfPropelledSystem {
-    final static int MAX_ITER = 1000;
+    final static int MAX_ITER = 5000;
 
     public static void main(String[] args) {
         if (args.length != 2) {

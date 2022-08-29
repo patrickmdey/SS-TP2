@@ -1,9 +1,10 @@
+from cProfile import label
 import matplotlib.pyplot as plt
 
 import numpy as np
 
 polarizations = []
-MAX_ITER = 1000
+MAX_ITER = 5000
 with open('../multiplot.txt') as multiplot_file:
     line = multiplot_file.readline()
     idx = 0
@@ -20,10 +21,13 @@ multiplot_file.close()
 
 plt.xlabel("Time (s)")
 plt.ylabel("Polarization")
-for polarization in polarizations:
-    plt.plot(polarization)
+
+etas = np.arange(0, 2.1, 0.5)
+for idx, polarization in enumerate(polarizations):
+    plt.plot(polarization, label="eta = " + str(etas[idx]))
 
 plt.axvline(x = 800, color = 'r', linestyle = '--')
+plt.legend(loc='upper right')
 plt.show() 
 
 t = int(input("Enter a number: "))
@@ -34,8 +38,8 @@ plt.xlabel("Eta")
 plt.ylabel("Polarization")
 
 # TODO cambiar por eta y densidad (N / L^2)
-plt.errorbar(np.arange(0, 6, 1), for_average, yerr=for_std, fmt='o', capsize=6, capthick=2)
-plt.xticks(np.arange(0, 6, 1))
+plt.errorbar(etas, for_average, yerr=for_std, fmt='o', capsize=6, capthick=2)
+plt.xticks(etas)
 plt.yticks(np.arange(0, 1.1, 0.1))
 
 plt.show()
