@@ -12,7 +12,7 @@ import java.util.List;
 public class ParticleGenerator {
 
     public static List<Particle> generate(String staticFile,
-                                int totalParticles, int spaceSize, double eta, double speed) {
+                                int totalParticles, double spaceSize, double eta, double speed) {
         List<Particle> particles = new ArrayList<>();
         for (int i = 0; i < totalParticles; i++) {
             Particle p = new Particle(speed, eta);

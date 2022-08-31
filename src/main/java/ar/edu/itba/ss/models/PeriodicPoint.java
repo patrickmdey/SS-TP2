@@ -7,7 +7,7 @@ public class PeriodicPoint extends Point {
     }
 
     @Override
-    public double distanceTo(Point other, int spaceSize, int gridM) {
+    public double distanceTo(Point other, double spaceSize, int gridM) {
         double cellSize = (double) spaceSize / gridM;
 
         double dx = Math.abs(x - other.getX());

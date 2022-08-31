@@ -7,14 +7,14 @@ public class Space {
             new int[]{0, 0}, new int[]{0, 1}, new int[]{1, 1}};
 
     private final Cell[][] cells;
-    private final int spaceSize;
+    private final double spaceSize;
     private final int gridM;
     private final double cellSize;
     private final List<Particle> particleList;
 
-    public Space(int spaceSize, double interactionRadius, List<Particle> particles) {
+    public Space(double spaceSize, double interactionRadius, List<Particle> particles) {
         this.spaceSize = spaceSize;
-        this.gridM = (int) Math.floor(spaceSize / (interactionRadius));
+        this.gridM = (int) Math.floor(spaceSize / interactionRadius);
         this.cellSize = (double) spaceSize / gridM;
 
         this.cells = new Cell[gridM][gridM];

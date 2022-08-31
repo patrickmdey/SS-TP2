@@ -9,11 +9,11 @@ public class Point {
         this.y = y;
     }
 
-    public double distanceTo(Point other, int spaceSize, int gridM) {
+    public double distanceTo(Point other, double spaceSize, int gridM) {
         return Math.sqrt(Math.pow(x - other.getX(), 2) + Math.pow(y - other.getY(), 2));
     }
 
-    public void move(int spaceSize, double dx, double dy) {
+    public void move(double spaceSize, double dx, double dy) {
         this.x = (spaceSize + this.x + dx) % spaceSize;
         this.y = (spaceSize + this.y + dy) % spaceSize;
     }

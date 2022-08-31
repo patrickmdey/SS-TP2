@@ -37,18 +37,18 @@ public class Particle {
         this.nextDir = (newDir + 2 * Math.PI) % (2 * Math.PI);
     }
 
-    private void updatePosition(int spaceSize) {
+    private void updatePosition(double spaceSize) {
         double dx = this.speed * Math.cos(this.direction);
         double dy = this.speed * Math.sin(this.direction);
         this.position.move(spaceSize, dx, dy);
     }
 
-    public void update(int spaceSize) {
+    public void update(double spaceSize) {
         this.direction = this.nextDir;
         this.updatePosition(spaceSize);
     }
 
-    public boolean isColliding(Particle other, int spaceSize, int gridM) {
+    public boolean isColliding(Particle other, double spaceSize, int gridM) {
         if (this.equals(other))
             return false;
 

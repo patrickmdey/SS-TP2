@@ -9,18 +9,18 @@ import java.util.List;
 import java.util.Locale;
 
 public class SelfPropelledSystem {
-    final static int MAX_ITER = 5000;
+    final static int MAX_ITER = 1000;
 
     public static void main(String[] args) {
-        if (args.length != 2) {
-            System.out.println("Usage: java SelfPropelledSystem <eta> <particle_count>");
+        if (args.length != 3) {
+            System.out.println("Usage: java SelfPropelledSystem <eta> <particle_count> <space_size>");
             System.exit(1);
         }
 
         double eta = Double.parseDouble(args[0]);
         int particleAmount = Integer.parseInt(args[1]);
+        double spaceSize = Double.parseDouble(args[2]);
 
-        int spaceSize = 25;
         double interactionRad = 1;
         double speed = 0.03;
 
