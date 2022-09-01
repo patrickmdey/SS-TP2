@@ -35,3 +35,6 @@ static.txt
 ovito.txt
 multiplot.txt
 
+.DS_Store
+simulations
+run_sim.sh
